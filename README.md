@@ -12,10 +12,11 @@ Dibuat untuk memudahkan guru memahami dan menerapkan gamifikasi di kelas.
 | Route                | Isi                                                                                |
 | -------------------- | ---------------------------------------------------------------------------------- |
 | `/`                  | Definisi, 6 elemen mekanika, manfaat, 4 jebakan, praktik membuat game dengan AI, contoh prompt nyata |
-| `/materi`            | 3 deck presentasi (44 slide) dengan PDF viewer langsung di halaman                 |
+| `/materi`            | 2 deck presentasi (28 slide) dengan PDF viewer langsung di halaman                 |
 | `/game`              | Daftar 2 webgame edukasi                                                           |
 | `/game/binar-seberang`   | Detail + iframe Binar Seberang (platformer 3D Berpikir Komputasional)       |
 | `/game/zombie-defense`    | Detail + iframe Zombie Defense (tower defense kuis Informatika)              |
+| `/prompt`            | 3 generator prompt HTML interaktif yang bisa langsung dipakai                     |
 
 ## Stack
 
@@ -110,12 +111,28 @@ dengan nama file.
 
 ## Contoh prompt
 
-`public/prompt/contoh-prompt-binar-seberang.md` adalah prompt asli yang dipakai untuk
-membuat Binar Seberang. Cuplikannya ditampilkan di bagian "Praktik" pada halaman beranda,
-dan file lengkapnya bisa diunduh dari sana.
+`public/prompt/` berisi dua jenis berkas:
 
-Kalau kamu membuat game baru dengan cara yang sama, ganti file itu dan perbarui variabel
-`promptBinar` di `data/konten.ts`.
+```
+public/prompt/
+├── generator-universal-11-mapel.html    Generator 10 model game × 11 mapel SMP
+├── generator-ifp-mgmp.html               Generator khusus layar IFP, 12 genre
+├── generator-edukasi-v2.html             Generator prompt master terstandarisasi
+└── contoh-prompt-binar-seberang.md       Prompt asli untuk Binar Seberang
+```
+
+Ketiga generator adalah alat interaktif yang bisa langsung dipakai dari halaman `/prompt` —
+guru mengisi parameter, klik generate, lalu menyalin hasilnya.
+
+Menambah generator baru: salin berkasnya ke `public/prompt/`, lalu daftarkan di
+`data/prompts.ts` → array `generators`.
+
+Cuplikan prompt Binar Seberang ditampilkan di bagian "Praktik" pada halaman beranda, dan
+berkas lengkapnya bisa diunduh dari sana. Kalau membuat game baru dengan cara yang sama,
+ganti berkas itu dan perbarui variabel `promptBinar` di `data/konten.ts`.
+
+> Generator Edukasi v2.0 memuat Tailwind dan ikon dari CDN, jadi butuh koneksi internet.
+> Dua generator lainnya sepenuhnya mandiri.
 
 ---
 
@@ -139,9 +156,10 @@ app/
 ├── globals.css             Token warna, utilities (.glass, .hover-lift, .grid-lines)
 ├── page.tsx                Beranda
 ├── materi/page.tsx         Koleksi slide
-└── game/
-    ├── page.tsx            Daftar game
-    └── [slug]/page.tsx     Detail game + iframe
+├── prompt/page.tsx         Daftar generator prompt
+├── game/
+│   ├── page.tsx            Daftar game
+│   └── [slug]/page.tsx     Detail game + iframe
 
 components/
 ├── header.tsx              Navigasi + tombol tema
@@ -150,16 +168,18 @@ components/
 ├── section-heading.tsx
 ├── mekanik-icon.tsx        Ikon 6 elemen gamifikasi
 ├── pdf-viewer.tsx          PDF inline + modal perbesar + fallback
-└── game-embed.tsx          Placeholder thumbnail + lazy iframe
+├── game-embed.tsx          Placeholder thumbnail + lazy iframe (rasio 16:9)
+└── prompt-embed.tsx        Placeholder + lazy iframe (tinggi, scroll internal)
 
 data/
 ├── konten.ts               Teks halaman beranda + metadata deck
-└── games.ts                Metadata dan deskripsi game
+├── games.ts                Metadata dan deskripsi game
+└── prompts.ts              Metadata dan deskripsi generator prompt
 
 public/
 ├── materi/                 PDF deck + thumbnail sampul
 ├── game/                   File HTML game + thumbnail
-└── prompt/                 Contoh prompt sumber
+└── prompt/                 Generator HTML + contoh prompt sumber
 ```
 
 ## Scripts

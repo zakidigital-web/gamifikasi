@@ -35,6 +35,7 @@ export function Footer() {
                 { href: "/#apa-itu", label: "Apa itu gamifikasi" },
                 { href: "/materi", label: "Koleksi materi" },
                 { href: "/game", label: "Webgame" },
+                { href: "/prompt", label: "Generator prompt" },
               ].map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="text-fg-secondary transition-colors hover:text-brand-500">

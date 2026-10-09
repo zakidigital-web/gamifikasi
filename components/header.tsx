@@ -10,6 +10,7 @@ const nav = [
   { href: "/#apa-itu", label: "Apa Itu" },
   { href: "/materi", label: "Materi" },
   { href: "/game", label: "Game" },
+  { href: "/prompt", label: "Prompt" },
 ];
 
 function subscribeScroll(cb: () => void) {
