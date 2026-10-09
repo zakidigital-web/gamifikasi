@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Master Prompt Edukasi v2.0 - Profesional SaaS</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Inter & Phosphor Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/phosphor-icons"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #090d16; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-600/30">
+                    <i class="ph-bold ph-cpu text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold bg-gradient-to-r from-indigo-300 via-purple-200 to-pink-300 bg-clip-text text-transparent">EduPrompt Master AI v2.0</h1>
+                    <p class="text-xs text-slate-400">Generator Prompt Game & Gamifikasi Pembelajaran Sistematis Lintas Mapel</p>
+                </div>
+            </div>
+            <!-- Preset Pilihan Cepat -->
+            <div class="flex flex-wrap items-center gap-2">
+                <button onclick="loadPreset('matematika')" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition flex items-center gap-1.5 shadow-sm">
+                    <i class="ph ph-calculator text-indigo-400"></i> Matematika
+                </button>
+                <button onclick="loadPreset('ipa')" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition flex items-center gap-1.5 shadow-sm">
+                    <i class="ph ph-atom text-emerald-400"></i> IPA
+                </button>
+                <button onclick="loadPreset('sejarah')" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition flex items-center gap-1.5 shadow-sm">
+                    <i class="ph ph-hourglass text-amber-400"></i> Sejarah
+                </button>
+                <button onclick="loadPreset('bahasa')" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition flex items-center gap-1.5 shadow-sm">
+                    <i class="ph ph-book-open text-sky-400"></i> Bahasa
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Left Panel: Parameter Konfigurasi Modular -->
+        <section class="lg:col-span-6 bg-slate-900/50 border border-slate-800/80 rounded-2xl p-5 shadow-2xl backdrop-blur flex flex-col gap-5">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+                <h2 class="text-sm font-bold uppercase tracking-wider flex items-center gap-2 text-indigo-300">
+                    <i class="ph-bold ph-sliders-horizontal text-base"></i> Parameter Konfigurasi Kurikulum & Game
+                </h2>
+                <button onclick="resetForm()" class="text-xs text-slate-400 hover:text-rose-400 transition flex items-center gap-1">
+                    <i class="ph ph-arrow-counter-clockwise"></i> Reset
+                </button>
+            </div>
+
+            <form id="generatorForm" class="space-y-4" onsubmit="event.preventDefault(); generateSystematicPrompt();">
+                
+                <!-- Baris 1: Mata Pelajaran & Jenjang -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Mata Pelajaran</label>
+                        <input type="text" id="subject" value="Matematika" placeholder="Contoh: Matematika, Fisika, Biologi" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 transition shadow-inner">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Target Jenjang Kelas</label>
+                        <select id="gradeLevel" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 transition shadow-inner">
+                            <option value="SD Kelas 4-6">SD (Kelas 4-6)</option>
+                            <option value="SMP Kelas 7-9" selected>SMP (Kelas 7-9)</option>
+                            <option value="SMA Kelas 10-12">SMA (Kelas 10-12)</option>
+                            <option value="Perguruan Tinggi">Perguruan Tinggi</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Topik Pembelajaran -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Topik / Materi Spesifik & Kompetensi Dasar</label>
+                    <input type="text" id="topic" value="Pecahan & Operasi Aljabar Dasar" placeholder="Contoh: Persamaan Linear, Ekosistem Hutan" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 transition shadow-inner">
+                </div>
+
+                <!-- Baris 2: Genre Game & Metode Pedagogis -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Genre Game Edukasi</label>
+                        <select id="gameGenre" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 transition shadow-inner">
+                            <option value="Puzzle Fisika / Logika 3D Isometrik">Puzzle Logika / Optik 3D Isometrik</option>
+                            <option value="Endless Runner / Road-Crossing">Endless Runner / Road-Crossing</option>
+                            <option value="Tower Defense / Strategy Tree Data">Tower Defense / Strategy Tree</option>
+                            <option value="Platformer Aksi & Kuis Logika">Platformer Aksi & Kuis Logika</option>
+                            <option value="Visual Novel Simulasi Keputusan">Visual Novel / Simulasi Keputusan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Pendekatan / Metode Pedagogis</label>
+                        <select id="pedagogy" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 transition shadow-inner">
+                            <option value="Problem-Based Learning (PBL) & Dekomposisi Masalah" selected>Problem-Based Learning (PBL)</option>
+                            <option value="Inquiry-Based & Eksperimen Mandiri">Inquiry-Based & Eksperimen</option>
+                            <option value="Gamified Drill & Practice Terstruktur">Gamified Drill & Practice</option>
+                            <option value="Algorithmic Thinking & Logical Reasoning">Algorithmic Thinking</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Baris 3: Gaya Visual & Kurva Kesulitan -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Gaya Seni & Visual (Art Style)</label>
+                        <select id="artStyle" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 transition shadow-inner">
+                            <option value="Isometric 3D Clean, Minimalist & Modern">Isometric 3D Clean & Modern</option>
+                            <option value="Low-Poly 3D Blocky Ramah Anak">Low-Poly 3D Blocky</option>
+                            <option value="Pixel Art 2D Retro Arcade">Pixel Art 2D Retro Arcade</option>
+                            <option value="Hand-drawn Clean Vector Art">Hand-drawn Vector Art</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Kurva Kesulitan & Alur Level</label>
+                        <select id="difficulty" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 transition shadow-inner">
+                            <option value="Adaptive / Bertahap dari Konsep Dasar ke Studi Kasus Menantang" selected>Adaptive / Bertahap (Easy to Hard)</option>
+                            <option value="Tantangan Cepat Berbasis Waktu (Time Trial)">Time Trial & Kecepatan</option>
+                            <option value="Eksploratif Santai (Calm & Relaxing Puzzle)">Santai & Eksploratif</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Baris 4: Platform & Validasi Error -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Target Platform & Kompatibilitas</label>
+                        <select id="platform" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 transition shadow-inner">
+                            <option value="Desktop & Smartphone Lanskap (Responsive HTML5)" selected>Desktop & Smartphone (Responsive HTML5)</option>
+                            <option value="Desktop Web (Keyboard/Mouse Optimized)">Desktop Web (Optimized)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Fitur Pencegah Error & Polish</label>
+                        <select id="errorGuard" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 transition shadow-inner">
+                            <option value="Strict Single-File HTML with Try/Catch, Fallbacks & No Alerts" selected>Strict Single-File & Try/Catch (Recommended)</option>
+                            <option value="Standard HTML5 Game Build">Standard Game Build</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Tombol Aksi -->
+                <div class="pt-2">
+                    <button type="button" onclick="generateSystematicPrompt()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 uppercase tracking-wider">
+                        <i class="ph-bold ph-magic-wand text-base"></i> Generate Master Prompt Sistematis
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Right Panel: Output Prompt Terstruktur & Kontrol -->
+        <section class="lg:col-span-6 flex flex-col gap-5">
+            <div class="bg-slate-900/50 border border-slate-800/80 rounded-2xl p-5 shadow-2xl backdrop-blur flex flex-col h-[520px]">
+                <div class="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider flex items-center gap-2 text-emerald-400">
+                        <i class="ph-bold ph-file-code text-base"></i> Struktur Prompt Master Terstandarisasi
+                    </h2>
+                    <div class="flex items-center gap-2">
+                        <button onclick="copyPrompt()" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center gap-1.5 shadow-md shadow-emerald-600/20">
+                            <i class="ph-bold ph-copy"></i> Salin Prompt
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Terminal-like Output Area -->
+                <div class="flex-1 bg-slate-950 border border-slate-800 rounded-xl p-4 overflow-y-auto relative font-mono text-xs text-slate-300 leading-relaxed shadow-inner">
+                    <pre id="outputPrompt" class="whitespace-pre-wrap">Silakan pilih konfigurasi di sebelah kiri dan klik tombol Generate.</pre>
+                </div>
+            </div>
+
+            <!-- Dokumentasi Standar & Validasi -->
+            <div class="bg-slate-900/50 border border-slate-800/80 rounded-2xl p-5 shadow-2xl backdrop-blur">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-300 flex items-center gap-2 mb-2.5">
+                    <i class="ph-bold ph-shield-check"></i> Jaminan Standar & Pencegahan Error
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-slate-400">
+                    <div class="p-3 bg-slate-950/80 border border-slate-800/60 rounded-xl">
+                        <span class="font-bold text-slate-200 block mb-0.5">1. Struktur Blok</span>
+                        Format prompt memuat 7 lapisan sistematis dari peran AI hingga aturan teknis kode.
+                    </div>
+                    <div class="p-3 bg-slate-950/80 border border-slate-800/60 rounded-xl">
+                        <span class="font-bold text-slate-200 block mb-0.5">2. Anti-Error Code</span>
+                        Instruksi ketat menggunakan Single-File HTML5, Try/Catch, tanpa `alert()`, dan asset fallback aman.
+                    </div>
+                    <div class="p-3 bg-slate-950/80 border border-slate-800/60 rounded-xl">
+                        <span class="font-bold text-slate-200 block mb-0.5">3. Pedagogi Nyata</span>
+                        Kurva belajar disesuaikan dengan standar kelas dan target kompetensi siswa.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-bold uppercase tracking-wider transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i class="ph-bold ph-check-circle text-base"></i>
+        <span>Master Prompt berhasil disalin ke papan klip!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-900/40 text-center py-4 text-xs text-slate-500">
+        EduPrompt Master AI v2.0 &bull; Dibangun untuk Kualitas Industri & Edukasi Tanpa Kompromi
+    </footer>
+
+    <!-- Script Logika Generator -->
+    <script>
+        const presets = {
+            matematika: {
+                subject: "Matematika",
+                gradeLevel: "SMP Kelas 7-9",
+                topic: "Pecahan & Operasi Aljabar Dasar",
+                gameGenre: "Puzzle Fisika / Logika 3D Isometrik",
+                pedagogy: "Problem-Based Learning (PBL) & Dekomposisi Masalah",
+                artStyle: "Isometric 3D Clean, Minimalist & Modern",
+                difficulty: "Adaptive / Bertahap dari Konsep Dasar ke Studi Kasus Menantang",
+                platform: "Desktop & Smartphone Lanskap (Responsive HTML5)",
+                errorGuard: "Strict Single-File HTML with Try/Catch, Fallbacks & No Alerts"
+            },
+            ipa: {
+                subject: "Ilmu Pengetahuan Alam (IPA)",
+                gradeLevel: "SMP Kelas 7-9",
+                topic: "Sistem Ekosistem & Jaring-Jaring Makanan",
+                gameGenre: "Tower Defense / Strategy Tree Data",
+                pedagogy: "Inquiry-Based & Eksperimen Mandiri",
+                artStyle: "Low-Poly 3D Blocky Ramah Anak",
+                difficulty: "Adaptive / Bertahap dari Konsep Dasar ke Studi Kasus Menantang",
+                platform: "Desktop & Smartphone Lanskap (Responsive HTML5)",
+                errorGuard: "Strict Single-File HTML with Try/Catch, Fallbacks & No Alerts"
+            },
+            sejarah: {
+                subject: "Ilmu Pengetahuan Sosial / Sejarah",
+                gradeLevel: "SMP Kelas 7-9",
+                topic: "Perjuangan Kemerdekaan & Jalur Logistik Strategis",
+                gameGenre: "Endless Runner / Road-Crossing",
+                pedagogy: "Problem-Based Learning (PBL) & Dekomposisi Masalah",
+                artStyle: "Pixel Art 2D Retro Arcade",
+                difficulty: "Tantangan Cepat Berbasis Waktu (Time Trial)",
+                platform: "Desktop & Smartphone Lanskap (Responsive HTML5)",
+                errorGuard: "Strict Single-File HTML with Try/Catch, Fallbacks & No Alerts"
+            },
+            bahasa: {
+                subject: "Bahasa Indonesia",
+                gradeLevel: "SMP Kelas 7-9",
+                topic: "Struktur Kalimat Baku & Analisis Teks Deskripsi",
+                gameGenre: "Visual Novel Simulasi Keputusan",
+                pedagogy: "Algorithmic Thinking & Logical Reasoning",
+                artStyle: "Hand-drawn Clean Vector Art",
+                difficulty: "Eksploratif Santai (Calm & Relaxing Puzzle)",
+                platform: "Desktop & Smartphone Lanskap (Responsive HTML5)",
+                errorGuard: "Strict Single-File HTML with Try/Catch, Fallbacks & No Alerts"
+            }
+        };
+
+        function loadPreset(key) {
+            const data = presets[key];
+            if (!data) return;
+            document.getElementById('subject').value = data.subject;
+            document.getElementById('gradeLevel').value = data.gradeLevel;
+            document.getElementById('topic').value = data.topic;
+            document.getElementById('gameGenre').value = data.gameGenre;
+            document.getElementById('pedagogy').value = data.pedagogy;
+            document.getElementById('artStyle').value = data.artStyle;
+            document.getElementById('difficulty').value = data.difficulty;
+            document.getElementById('platform').value = data.platform;
+            document.getElementById('errorGuard').value = data.errorGuard;
+            generateSystematicPrompt();
+        }
+
+        function resetForm() {
+            document.getElementById('subject').value = "Matematika";
+            document.getElementById('gradeLevel').value = "SMP Kelas 7-9";
+            document.getElementById('topic').value = "Pecahan & Operasi Aljabar Dasar";
+            document.getElementById('gameGenre').value = "Puzzle Fisika / Logika 3D Isometrik";
+            document.getElementById('pedagogy').value = "Problem-Based Learning (PBL) & Dekomposisi Masalah";
+            document.getElementById('artStyle').value = "Isometric 3D Clean, Minimalist & Modern";
+            document.getElementById('difficulty').value = "Adaptive / Bertahap dari Konsep Dasar ke Studi Kasus Menantang";
+            document.getElementById('platform').value = "Desktop & Smartphone Lanskap (Responsive HTML5)";
+            document.getElementById('errorGuard').value = "Strict Single-File HTML with Try/Catch, Fallbacks & No Alerts";
+            generateSystematicPrompt();
+        }
+
+        function generateSystematicPrompt() {
+            const subject = document.getElementById('subject').value;
+            const gradeLevel = document.getElementById('gradeLevel').value;
+            const topic = document.getElementById('topic').value;
+            const gameGenre = document.getElementById('gameGenre').value;
+            const pedagogy = document.getElementById('pedagogy').value;
+            const artStyle = document.getElementById('artStyle').value;
+            const difficulty = document.getElementById('difficulty').value;
+            const platform = document.getElementById('platform').value;
+            const errorGuard = document.getElementById('errorGuard').value;
+
+            const systematicPrompt = `[ROLE & MISI UTAMA]
+Anda adalah seorang Game Developer Senior dan Ahli Kurikulum Pendidikan Nasional. Tugas Anda adalah merancang dan menghasilkan sebuah game edukasi interaktif berkualitas industri profesional yang sepenuhnya dapat dimainkan untuk mata pelajaran ${subject}, tingkat ${gradeLevel}, dengan fokus khusus pada materi "${topic}".
+
+[KERANGKA KURIKULUM & INTEGRASI PEDAGOGIS]
+1. Domain Mata Pelajaran: ${subject} (${gradeLevel})
+2. Topik Utama: ${topic}
+3. Pendekatan Pembelajaran: ${pedagogy}
+4. Integrasi Konsep: Setiap mekanisme permainan harus merepresentasikan konsep nyata dari materi ${topic}. Pemain tidak hanya bermain secara mekanis, tetapi mengasah kemampuan analisis, pemecahan masalah sistematis, dan logika terstruktur.
+
+[MEKANIK GAMEPLAY & INTERAKSI]
+1. Genre Game: ${gameGenre}
+2. Kontrol & Navigasi: Intuitif dan responsif mendukung klik mouse, sentuhan jari (tap/drag) di smartphone, serta tombol panah/WASD di desktop.
+3. Pos Pemeriksaan & Kuis Konseptual: Di sepanjang permainan, pemain dihadapkan pada pos tantangan atau kotak misteri yang menguji pemahaman konsep, studi kasus, dan logika akademik.
+4. Sistem Reward & Power-ups: Menjawab tantangan dengan benar memberikan keuntungan strategis (seperti bantuan langkah, perisai, atau pembekuan waktu). Skor dihitung berdasarkan akurasi jawaban dan pencapaian jarak/level.
+
+[DESAIN LEVEL & KURVA KESULITAN]
+1. Kurva Kesulitan: ${difficulty}
+2. Level dirancang terstruktur dari pengenalan konsep dasar menuju studi kasus logika tingkat lanjut.
+3. Tersedia fitur reset, undo, atau petunjuk (hints) untuk mendukung latihan trial and error yang sehat bagi siswa.
+
+[GAYA VISUAL, POLISH & AUDIO]
+1. Gaya Seni: ${artStyle}
+2. Polish: Dilengkapi layar judul (title screen), jeda (pause), pengaturan (settings), layar hasil akhir (results), animasi halus, serta tutorial singkat interaktif pada permainan pertama.
+3. Antarmuka (UI): Menggunakan Bahasa Indonesia yang komunikatif, edukatif, dan ramah anak/remaja.
+
+[SPESIFIKASI TEKNIS & PENCEGAHAN ERROR]
+1. Platform Target: ${platform}
+2. Standar Kode (${errorGuard}):
+   - Seluruh kode (HTML, Tailwind CSS, JavaScript) **WAJIB** digabungkan dalam **1 (satu) file HTML tunggal** yang bersih, self-contained, dan dapat langsung dijalankan tanpa dependensi eksternal yang rumit selain CDN resmi (seperti Tailwind, Three.js, atau Phosphor Icons).
+   - Gunakan blok penanganan error (\`try/catch\`) pada fungsi kritis.
+   - **JANGAN PERNAH** menggunakan fungsi \`alert()\` atau \`confirm()\` bawaan browser; gunakan kotak pesan modal/UI kustom di dalam layar jika diperlukan.
+   - Pastikan URL gambar menggunakan fallback yang aman (seperti placehold.co) untuk mencegah gambar rusak.
+
+[ATURAN OUTPUT]
+Berikan pratinjau game lengkap yang dapat dimainkan menggunakan blok file tunggal yang diawali dengan format \`\`\`html:{Judul Game}:{nama_file.html}\`\`\` dan diakhiri dengan \`\`\`eof\`.`;
+
+            document.getElementById('outputPrompt').textContent = systematicPrompt;
+        }
+
+        function copyPrompt() {
+            const text = document.getElementById('outputPrompt').textContent;
+            if (!text || text.includes('Silakan pilih')) return;
+
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast();
+            } catch (err) {
+                console.error('Gagal menyalin teks', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Inisialisasi awal saat halaman dimuat
+        window.onload = function() {
+            generateSystematicPrompt();
+        };
+    </script>
+</body>
+</html>

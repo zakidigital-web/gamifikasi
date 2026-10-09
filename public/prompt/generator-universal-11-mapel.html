@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generator Master Prompt Gim Edukasi Universal</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--text:#172033;--muted:#667085;--primary:#4f46e5;--secondary:#7c3aed;--border:#e4e7ec;--green:#16a34a}
+*{box-sizing:border-box}
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:34px 20px}
+.wrap{max-width:1200px;margin:auto}
+h1{margin:0 0 8px;font-size:clamp(26px,4vw,40px)}
+header p{margin:0;opacity:.92}
+.panel{background:#fff;border:1px solid var(--border);border-radius:18px;padding:20px;margin:22px 0;box-shadow:0 8px 25px rgba(16,24,40,.07)}
+.form{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+label{font-size:13px;font-weight:700;color:#344054}
+input,select{width:100%;margin-top:6px;padding:12px;border:1px solid #d0d5dd;border-radius:10px;background:#fff;font-size:15px}
+.note{margin-top:14px;padding:12px 14px;border-radius:10px;background:#f5f3ff;color:#4c1d95;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:#fff;border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:0 8px 25px rgba(16,24,40,.07)}
+.head{padding:18px 20px;background:linear-gradient(135deg,#faf9ff,#fff)}
+.badge{display:inline-block;background:#ede9fe;color:#5b21b6;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:800}
+h2{margin:10px 0 5px;font-size:20px}
+.desc{margin:0;color:var(--muted);font-size:13px}
+.body{padding:18px 20px}
+textarea{width:100%;height:390px;resize:vertical;border:1px solid var(--border);border-radius:12px;padding:14px;background:#fbfcfe;font:13px/1.55 Consolas,monospace;color:#1f2937}
+.actions{display:flex;gap:10px;margin-top:12px}
+button{border:0;border-radius:10px;padding:12px 16px;font-weight:800;cursor:pointer;font-size:14px}
+.gen{background:var(--primary);color:#fff;flex:1}
+.copy{background:#ecfdf3;color:#166534;border:1px solid #bbf7d0}
+.copy.ok{background:var(--green);color:#fff}
+.footer{text-align:center;color:var(--muted);padding:28px 10px;font-size:13px}
+@media(max-width:850px){.form{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:1fr}}
+@media(max-width:550px){.form{grid-template-columns:1fr}.actions{flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+<h1>🎮 Generator Master Prompt Gim Edukasi</h1>
+<p>Universal • 10 Model Gim • 11 Mata Pelajaran SMP • Siap Copy-Paste</p>
+</div>
+</header>
+
+<main class="wrap">
+<section class="panel">
+<div class="form">
+<div><label>Kelas / Jenjang</label><select id="kelas">
+<option>SMP Kelas VII</option><option>SMP Kelas VIII</option><option>SMP Kelas IX</option><option>SMP Fase D</option>
+</select></div>
+<div><label>Mata Pelajaran</label><select id="mapel">
+<option>Pendidikan Agama dan Budi Pekerti</option>
+<option>Pendidikan Pancasila</option>
+<option>Bahasa Indonesia</option>
+<option>Matematika</option>
+<option>IPA</option>
+<option>IPS</option>
+<option>Bahasa Inggris</option>
+<option>Informatika</option>
+<option>PJOK</option>
+<option>Seni Budaya</option>
+<option>Bahasa Jawa</option>
+</select></div>
+<div><label>Topik / Materi</label><input id="topik" placeholder="Contoh: Sistem Komputer"></div>
+<div><label>Jumlah Soal / Tantangan</label><input id="jumlah" value="10" type="number" min="1"></div>
+<div><label>Tingkat Kesulitan</label><select id="level">
+<option>Mudah</option><option selected>Sedang</option><option>Sulit</option><option>Campuran</option>
+</select></div>
+<div><label>Platform / AI</label><select id="platform">
+<option>Universal HTML5 (HTML + CSS + JavaScript)</option>
+<option>Canva Code</option>
+<option>Google AI Studio</option>
+<option>Gemini</option>
+<option>ChatGPT</option>
+<option>Claude</option>
+</select></div>
+</div>
+<div class="note">💡 Isi data di atas. Semua 10 prompt akan otomatis diperbarui. Klik <b>Copy Prompt</b> untuk langsung ditempel ke AI pilihan Bapak.</div>
+</section>
+
+<section class="cards" id="cards"></section>
+<div class="footer">Generator Master Prompt Gim Edukasi Universal — dirancang untuk pembelajaran SMP dan Papan Interaktif Digital.</div>
+</main>
+
+<script>
+const games=[
+["KOTAK MISTERI","MYSTERY BOX","Kotak misteri berisi soal, tantangan, poin, atau bonus.",`Sediakan {j} kotak misteri yang dapat dibuka satu per satu. Setiap kotak berisi soal, tantangan, atau hadiah kejutan berupa poin/bonus.`],
+["MISI PENGEMBARAAN","ADVENTURE QUEST","Perjalanan bertahap dengan cerita, misi, poin, item, dan peta.",`Sediakan {j} tahap pengembaraan. Setiap tahap berisi cerita singkat, tantangan pembelajaran, dan hadiah berupa poin atau item.`],
+["ESCAPE ROOM","RUANG PELARIAN","Tantangan berurutan untuk membuka pintu terakhir.",`Sediakan {j} tantangan berurutan berupa teka-teki, puzzle, atau soal interaktif. Pemain harus menyelesaikan tantangan untuk membuka pintu terakhir.`],
+["RODA PUTAR","SPIN WHEEL","Roda acak untuk memilih soal atau tantangan.",`Sediakan {j} bagian/tantangan pada roda. Setelah roda berhenti secara acak, tampilkan tantangan yang terpilih.`],
+["PADANAN MEMORI","MEMORY MATCH","Mencocokkan pasangan istilah, konsep, contoh, atau jawaban.",`Sediakan {j} pasangan kartu yang harus dicocokkan, misalnya istilah-definisi, konsep-contoh, soal-jawaban, atau gambar-keterangan.`],
+["PERTANDINGAN KUIS","QUIZ SHOW","Kuis pilihan ganda dengan skor dan penjelasan.",`Sediakan {j} soal pilihan ganda dengan empat pilihan jawaban. Soal dapat diacak setiap permainan dimulai.`],
+["SUSUN & URUTKAN","DRAG AND ARRANGE","Mengurutkan kartu dengan drag-and-drop.",`Sediakan {j} aktivitas mengurutkan. Tampilkan kartu/objek secara acak dan pemain harus menyusunnya ke urutan yang benar dengan drag-and-drop.`],
+["KELOMPOKKAN CEPAT","SORT IT!","Mengelompokkan objek ke kategori yang tepat.",`Sediakan {j} item yang harus dikelompokkan ke kategori yang tepat menggunakan drag-and-drop.`],
+["BENAR ATAU SALAH","TRUE OR FALSE","Menentukan benar atau salah disertai penjelasan.",`Sediakan {j} pernyataan yang harus ditentukan Benar atau Salah. Setelah pilihan dibuat, berikan umpan balik dan penjelasan singkat.`],
+["PAPAN TANTANGAN","CHALLENGE BOARD","Papan kategori dengan tantangan bernilai poin.",`Buat papan tantangan dengan {j} kategori/kelompok tantangan. Setiap kotak memiliki nilai poin berbeda dan dapat dibuka satu kali.`]
+];
+
+function vals(){
+return {
+k:kelas.value,m:mapel.value,t:topik.value.trim()||"[Topik/Materi]",
+j:jumlah.value||"10",l:level.value,p:platform.value
+}
+}
+
+function promptFor(g){
+let v=vals();
+let tech=v.p==="Universal HTML5 (HTML + CSS + JavaScript)"
+?"Hasil akhir harus berupa satu file HTML mandiri yang berisi HTML, CSS, dan JavaScript. Jangan membutuhkan server, database, API berbayar, framework eksternal, atau instalasi tambahan."
+:"Buat implementasi yang kompatibel dengan "+v.p+". Jika platform mendukung kode interaktif, hasil harus dapat langsung dijalankan dan dimainkan.";
+
+return `MASTER PROMPT — ${g[0]} (${g[1]})
+
+Bertindak sebagai pengembang permainan pendidikan profesional sekaligus instructional game designer.
+
+TUJUAN:
+Buat permainan "${g[0]}" untuk ${v.k}, mata pelajaran ${v.m}, dengan topik "${v.t}".
+
+KARAKTERISTIK PEMBELAJARAN:
+- Tingkat kesulitan: ${v.l}.
+- Jumlah soal/tantangan: ${v.j}.
+- Materi harus sesuai tingkat perkembangan peserta didik SMP.
+- Soal harus relevan dengan topik dan tidak keluar dari materi.
+- Gunakan Bahasa Indonesia yang jelas, komunikatif, dan sesuai konteks pendidikan.
+- Hindari soal ambigu dan pastikan hanya ada jawaban yang dapat dipertanggungjawabkan.
+- Berikan umpan balik edukatif setelah jawaban.
+- Variasikan soal/tantangan agar permainan tidak monoton.
+
+MEKANISME PERMAINAN:
+${g[3]}
+Tambahkan:
+- skor otomatis;
+- indikator kemajuan;
+- status benar/salah;
+- umpan balik dan penjelasan singkat;
+- efek animasi ringan;
+- efek suara ringan jika memungkinkan;
+- tombol Mulai, Lanjutkan, Main Lagi/Restart;
+- layar hasil akhir;
+- rekap skor dan jumlah jawaban benar;
+- pengalaman bermain yang menyenangkan tetapi tetap fokus pada pembelajaran.
+
+DESAIN ANTARMUKA:
+- Modern, bersih, menarik untuk siswa SMP.
+- Responsive untuk laptop, tablet, HP, dan Papan Interaktif Digital.
+- Tombol, kartu, pilihan jawaban, dan area drag-and-drop berukuran besar.
+- Kontras teks jelas dan mudah dibaca dari jarak jauh.
+- Gunakan ikon/ilustrasi sederhana yang relevan.
+- Hindari tampilan terlalu ramai.
+- Pastikan permainan dapat dimainkan dengan mouse maupun layar sentuh jika memungkinkan.
+
+ATURAN KONTEN:
+- Jangan memberikan konten yang tidak relevan dengan ${v.m}.
+- Buat soal berdasarkan topik "${v.t}".
+- Jangan mengarang fakta yang meragukan.
+- Jika ada istilah khusus, berikan penjelasan yang sesuai level siswa.
+- Gunakan variasi konteks dan contoh kehidupan sehari-hari bila relevan.
+
+TEKNIS:
+${tech}
+- Pastikan tidak ada tombol atau fitur yang tidak berfungsi.
+- Pastikan skor dan progres diperbarui secara otomatis.
+- Pastikan permainan dapat dimulai ulang tanpa error.
+- Jangan menggunakan placeholder kosong pada soal final.
+- Semua data soal/tantangan harus sudah tersedia di dalam aplikasi.
+
+OUTPUT:
+Berikan hasil akhir yang lengkap dan siap digunakan. Jangan hanya memberikan konsep atau rancangan.`;
+}
+
+function render(){
+cards.innerHTML="";
+games.forEach((g,i)=>{
+let el=document.createElement("article");
+el.className="card";
+el.innerHTML=`<div class="head"><span class="badge">GAME ${i+1}</span><h2>${g[0]} <small>(${g[1]})</small></h2><p class="desc">${g[2]}</p></div>
+<div class="body"><textarea id="p${i}" spellcheck="false"></textarea><div class="actions">
+<button class="gen" onclick="generate(${i})">⚡ Generate Prompt</button>
+<button class="copy" onclick="copyPrompt(${i},this)">📋 Copy Prompt</button></div></div>`;
+cards.appendChild(el);
+generate(i);
+});
+}
+function generate(i){document.getElementById("p"+i).value=promptFor(games[i])}
+async function copyPrompt(i,b){
+let text=document.getElementById("p"+i).value;
+try{await navigator.clipboard.writeText(text)}
+catch(e){let x=document.getElementById("p"+i);x.select();document.execCommand("copy")}
+b.textContent="✓ Tersalin!";b.classList.add("ok");
+setTimeout(()=>{b.textContent="📋 Copy Prompt";b.classList.remove("ok")},1600)
+}
+["kelas","mapel","topik","jumlah","level","platform"].forEach(id=>document.getElementById(id).addEventListener("input",render));
+render();
+</script>
+</body>
+</html>
